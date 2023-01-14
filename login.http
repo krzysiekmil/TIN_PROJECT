@@ -1,0 +1,38 @@
+POST http://localhost:8080/api/auth
+Content-Type: application/json
+
+{
+    "username": "kmilewski",
+    "password": "12345678"
+}
+
+> {% client.global.set("auth_token", response.body.json.token); %}
+
+
+
+
+
+###
+POST http://localhost:8080/api/auth
+Accept: application/json, text/plain, */*
+Accept-Language: pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7
+Connection: keep-alive
+DNT: 1
+Origin: http://localhost:4200
+Referer: http://localhost:4200/
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-site
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Content-Type: application/json
+
+{
+    "username": "kmilewski",
+    "password": "12345678"
+}
+
+###
+
