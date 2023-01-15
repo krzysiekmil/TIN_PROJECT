@@ -7,4 +7,4 @@ FROM amazoncorretto:19-alpine
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/tin-0.0.1-SNAPSHOT.war /app/tin-0.0.1-SNAPSHOT.war
 EXPOSE 8080
-ENTRYPOINT ["java","-war","/app/tin-0.0.1-SNAPSHOT.war"]
+ENTRYPOINT ["java","-jar","/app/tin-0.0.1-SNAPSHOT.war"]
