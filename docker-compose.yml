@@ -1,0 +1,55 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: '3.7'
+
+#Define services
+services:
+
+  #PostgreSQL Database for the application
+  tin-mysql-test:
+    image: "mysql:8.0.31"
+    #Volume mounted for database for the storage
+    volumes:
+      - tin-data:/var/lib/mysql
+    ports:
+      - 3306:3306 # Forward the exposed port 5432 on the container to port 5432 on the host machine
+
+    #Environment variable for DB name, user and password
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_DATABASE=tin
+    networks:
+      - backend  
+
+  #Back-end Spring Boot Application
+  tin-app:
+    build:
+    #The docker file in scrum-app build the jar and provides the docker image with the following name.
+      context: tin_project_be/tin
+      dockerfile: Dockerfile
+    depends_on: 
+      - tin-mysql-test
+    ports:
+      - 8080:8080 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    networks:
+      - backend
+      - frontend
+
+  #Fron-end Angular Application
+  tin-ui:
+    build:
+      context: tinProjectFe
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    networks:
+      - frontend
+
+#Volumes for DB data
+volumes:
+  tin-data:
+  
+networks:
+  backend:
+  frontend:
